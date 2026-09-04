@@ -204,11 +204,11 @@ button {
   margin-bottom: 34px;
 }
 
-/* Shop brown */
+/* Shop light cream */
 .sidebar__logo em,
 .mobile-bar__logo em {
   font-style: normal;
-  color: var(--brown-dark);
+  color: var(--bg);
 }
 
 
