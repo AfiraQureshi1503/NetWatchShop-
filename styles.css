@@ -353,20 +353,16 @@ button {
 
 
 /* Instagram */
+
 #sidebarInstagramLink,
-#sidebarInstagramLink:hover,
-#sidebarInstagramLink svg,
-#sidebarInstagramLink:hover svg,
-
 #sidebarTiktokLink,
-#sidebarTiktokLink:hover,
-#sidebarTiktokLink svg,
-#sidebarTiktokLink:hover svg,
+#sidebarYoutubeLink {
+  color: #FFFFFF;
+}
 
-#sidebarYoutubeLink,
-#sidebarYoutubeLink:hover,
-#sidebarYoutubeLink svg,
-#sidebarYoutubeLink:hover svg {
+#sidebarInstagramLink:hover,
+#sidebarTiktokLink:hover,
+#sidebarYoutubeLink:hover {
   color: #FFFFFF;
 }
 
