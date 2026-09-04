@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Owner Panel — NetWatchShop Management</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="admin.css">
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+
+<body>
+
+  <!-- Top Admin Bar -->
+  <header class="admin-header">
+    <div class="admin-header__brand">
+      <div class="logo-mark" aria-hidden="true"></div>
+      <div>
+        <span class="admin-header__title">NetWatch<em>Shop</em></span>
+        <span class="admin-header__badge">Owner Control Panel</span>
+      </div>
+    </div>
+
+    <div class="admin-header__actions">
+      <span class="admin-header__user" id="adminUserBadge">Logged in as: <strong>Owner</strong></span>
+      <a href="./" target="_blank" class="btn btn--outline btn--sm">
+        <svg viewBox="0 0 24 24" fill="none">
+          <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6M15 3h6v6M10 14 21 3" stroke="currentColor"
+            stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+        </svg>
+        View Live Website
+      </a>
+      <button class="btn btn--danger-outline btn--sm" id="logoutBtn">
+        <svg viewBox="0 0 24 24" fill="none">
+          <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4M16 17l5-5-5-5M21 12H9" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round" />
+        </svg>
+        Log Out
+      </button>
+    </div>
+  </header>
+
+  <!-- Admin Main Layout -->
+  <div class="admin-layout">
+
+    <!-- Sidebar Navigation Tabs -->
+    <aside class="admin-sidebar">
+      <nav class="admin-nav">
+        <button class="admin-nav__link is-active" data-tab="productsTab">
+          <svg viewBox="0 0 24 24" fill="none">
+            <rect x="4" y="4" width="7" height="7" rx="1.2" stroke="currentColor" stroke-width="1.8" />
+            <rect x="13" y="4" width="7" height="7" rx="1.2" stroke="currentColor" stroke-width="1.8" />
+            <rect x="4" y="13" width="7" height="7" rx="1.2" stroke="currentColor" stroke-width="1.8" />
+            <rect x="13" y="13" width="7" height="7" rx="1.2" stroke="currentColor" stroke-width="1.8" />
+          </svg>
+          Products Management
+        </button>
+
+        <button class="admin-nav__link" data-tab="galleryTab">
+          <svg viewBox="0 0 24 24" fill="none">
+            <rect x="3.5" y="4.5" width="17" height="15" rx="1.6" stroke="currentColor" stroke-width="1.8" />
+            <circle cx="8.3" cy="9.3" r="1.6" stroke="currentColor" stroke-width="1.8" />
+            <path d="m4.5 16.5 4.5-4.3 3 2.6 4-4 4 4.6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
+              stroke-linejoin="round" />
+          </svg>
+          Gallery Management
+        </button>
+
+        <button class="admin-nav__link" data-tab="videoTab">
+          <svg viewBox="0 0 24 24" fill="none">
+            <rect x="3" y="5" width="18" height="14" rx="2" stroke="currentColor" stroke-width="1.8" />
+            <path d="m10 9 5 3-5 3V9z" fill="currentColor" />
+          </svg>
+          Website Video
+        </button>
+
+        <button class="admin-nav__link" data-tab="contentTab">
+          <svg viewBox="0 0 24 24" fill="none">
+            <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7" stroke="currentColor"
+              stroke-width="1.8" />
+            <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z" stroke="currentColor"
+              stroke-width="1.8" />
+          </svg>
+          Site Text &amp; Social Links
+        </button>
+
+        <button class="admin-nav__link" data-tab="securityTab">
+          <svg viewBox="0 0 24 24" fill="none">
+            <rect x="5" y="11" width="14" height="10" rx="2" stroke="currentColor" stroke-width="1.8" />
+            <path d="M8 11V7a4 4 0 0 1 8 0v4" stroke="currentColor" stroke-width="1.8" />
+          </svg>
+          Security &amp; Password
+        </button>
+      </nav>
+    </aside>
+
+    <!-- Main Content Area -->
+    <main class="admin-main">
+
+      <!-- Toast Alert Notification -->
+      <div id="toast" class="toast" style="display: none;"></div>
+
+      <!-- PRODUCTS TAB -->
+      <section id="productsTab" class="tab-panel is-active">
+        <div class="tab-panel__head">
+          <div>
+            <h2>Product Management</h2>
+            <p>Add, edit, upload pictures, change prices or hide products on your website.</p>
+          </div>
+          <button class="btn btn--primary" id="openAddProductModalBtn">
+            <svg viewBox="0 0 24 24" fill="none">
+              <path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" />
+            </svg>
+            Add New Product
+          </button>
+        </div>
+
+        <div class="stats-row">
+          <div class="stat-card">
+            <span class="stat-card__num" id="statTotalProducts">0</span>
+            <span class="stat-card__label">Total Products</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-card__num" id="statPublishedProducts">0</span>
+            <span class="stat-card__label">Published Live</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-card__num" id="statHiddenProducts">0</span>
+            <span class="stat-card__label">Hidden Products</span>
+          </div>
+        </div>
+
+        <div class="admin-card">
+          <div class="admin-table-wrapper">
+            <table class="admin-table">
+              <thead>
+                <tr>
+                  <th>Product Image</th>
+                  <th>Name &amp; Specifications</th>
+                  <th>Price</th>
+                  <th>Stock Status</th>
+                  <th>Visibility</th>
+                  <th style="text-align: right;">Actions</th>
+                </tr>
+              </thead>
+              <tbody id="adminProductsTableBody">
+                <!-- Populated dynamically via JS -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- GALLERY TAB -->
+      <section id="galleryTab" class="tab-panel">
+        <div class="tab-panel__head">
+          <div>
+            <h2>Gallery Management</h2>
+            <p>Upload, delete and replace photos in the public website gallery.</p>
+          </div>
+        </div>
+
+        <div class="admin-card mb-4">
+          <h3>Upload New Gallery Image</h3>
+          <form id="uploadGalleryForm" class="grid-form">
+            <div class="form-group full-width">
+              <label for="galleryFile">Select Image File</label>
+              <input type="file" id="galleryFile" accept="image/*" required>
+            </div>
+            <div class="form-group">
+              <label for="galleryCaption">Image Caption / Alt Text</label>
+              <input type="text" id="galleryCaption" placeholder="e.g. IMOU camera box packaging">
+            </div>
+            <div class="form-group">
+              <label for="gallerySpan">Grid Layout Size</label>
+              <select id="gallerySpan">
+                <option value="">Normal (1 Column)</option>
+                <option value="span-2">Wide Featured (2 Columns)</option>
+              </select>
+            </div>
+            <div class="form-group full-width">
+              <button type="submit" class="btn btn--primary" id="uploadGalleryBtn">Upload to Gallery</button>
+            </div>
+          </form>
+        </div>
+
+        <div class="admin-card">
+          <h3>Current Gallery Photos</h3>
+          <div class="admin-gallery-grid" id="adminGalleryGrid">
+            <!-- Populated dynamically -->
+          </div>
+        </div>
+      </section>
+
+      <!-- VIDEO TAB -->
+      <section id="videoTab" class="tab-panel">
+        <div class="tab-panel__head">
+          <div>
+            <h2>Website Video Management</h2>
+            <p>Replace or update the product demonstration video featured on the website.</p>
+          </div>
+        </div>
+
+        <div class="admin-card">
+          <form id="videoForm">
+            <div class="form-group">
+              <label for="videoEyebrow">Section Eyebrow</label>
+              <input type="text" id="videoEyebrow" placeholder="Product in action">
+            </div>
+
+            <div class="form-group">
+              <label for="videoTitle">Section Heading</label>
+              <input type="text" id="videoTitle" placeholder="See it in action">
+            </div>
+
+            <div class="form-group">
+              <label for="videoFile">Upload New Video File (.mp4, .webm)</label>
+              <input type="file" id="videoFile" accept="video/*">
+              <small class="form-help">Leave empty if keeping current video.</small>
+            </div>
+
+            <div class="form-group">
+              <label for="posterFile">Upload Video Thumbnail Image (Poster)</label>
+              <input type="file" id="posterFile" accept="image/*">
+              <small class="form-help">Optional thumbnail image before video plays.</small>
+            </div>
+
+            <div class="form-group mb-4">
+              <label>Current Video Preview</label>
+              <div class="video-preview-box">
+                <video id="adminVideoPreview" controls playsinline
+                  style="max-width: 100%; max-height: 320px; border-radius: 8px;"></video>
+              </div>
+            </div>
+
+            <button type="submit" class="btn btn--primary" id="saveVideoBtn">Save Video Changes</button>
+          </form>
+        </div>
+      </section>
+
+      <!-- SITE CONTENT TAB -->
+      <section id="contentTab" class="tab-panel">
+        <div class="tab-panel__head">
+          <div>
+            <h2>Website Content &amp; Contact Info</h2>
+            <p>Update basic website text, WhatsApp number and social media links.</p>
+          </div>
+        </div>
+
+        <div class="admin-card">
+          <form id="siteContentForm">
+            <h3>Hero Section</h3>
+            <div class="form-group">
+              <label for="contentHeroEyebrow">Hero Badge / Eyebrow Text</label>
+              <input type="text" id="contentHeroEyebrow">
+            </div>
+            <div class="form-group">
+              <label for="contentHeroTitle">Main Hero Title</label>
+              <input type="text" id="contentHeroTitle">
+            </div>
+            <div class="form-group">
+              <label for="contentHeroSubtitle">Hero Subtitle</label>
+              <textarea id="contentHeroSubtitle" rows="3"></textarea>
+            </div>
+
+            <hr class="form-divider">
+
+            <h3>About Section</h3>
+            <div class="form-group">
+              <label for="contentAboutTitle">About Section Title</label>
+              <input type="text" id="contentAboutTitle">
+            </div>
+            <div class="form-group">
+              <label for="contentAboutLead">About Section Description</label>
+              <textarea id="contentAboutLead" rows="4"></textarea>
+            </div>
+
+            <hr class="form-divider">
+
+            <h3>Contact &amp; Social Links</h3>
+            <div class="form-group">
+              <label for="contentWhatsapp">WhatsApp Phone Number</label>
+              <input type="text" id="contentWhatsapp" placeholder="03243249829">
+              <small class="form-help">WhatsApp links will automatically format to 03243249829 /
+                wa.me/923243249829</small>
+            </div>
+
+            <div class="form-group">
+              <label for="contentInstagram">Instagram Handle</label>
+              <input type="text" id="contentInstagram" placeholder="netwatchshop">
+            </div>
+
+            <div class="form-group">
+              <label for="contentTiktok">TikTok Handle</label>
+              <input type="text" id="contentTiktok" placeholder="netwatchshop">
+            </div>
+
+            <div class="form-group">
+              <label for="contentYoutube">YouTube Channel / Search</label>
+              <input type="text" id="contentYoutube" placeholder="NetWatch Technology">
+            </div>
+
+            <button type="submit" class="btn btn--primary" id="saveContentBtn">Save All Website Content</button>
+          </form>
+        </div>
+      </section>
+
+      <!-- SECURITY TAB -->
+      <section id="securityTab" class="tab-panel">
+        <div class="tab-panel__head">
+          <div>
+            <h2>Account Security &amp; Password</h2>
+            <p>Update your admin panel password to keep your store management secure.</p>
+          </div>
+        </div>
+
+        <div class="admin-card" style="max-width: 540px;">
+          <form id="changePasswordForm">
+            <div class="form-group">
+              <label for="currentPassword">Current Password</label>
+              <input type="password" id="currentPassword" required autocomplete="current-password">
+            </div>
+
+            <div class="form-group">
+              <label for="newPassword">New Password</label>
+              <input type="password" id="newPassword" required minlength="6" autocomplete="new-password">
+              <small class="form-help">Must be at least 6 characters long.</small>
+            </div>
+
+            <div class="form-group">
+              <label for="confirmNewPassword">Confirm New Password</label>
+              <input type="password" id="confirmNewPassword" required autocomplete="new-password">
+            </div>
+
+            <button type="submit" class="btn btn--primary" id="changePasswordBtn">Change Password</button>
+          </form>
+        </div>
+      </section>
+
+    </main>
+
+  </div>
+
+  <!-- ADD / EDIT PRODUCT MODAL -->
+  <div class="modal-overlay" id="productModal" style="display: none;">
+    <div class="modal">
+      <div class="modal__head">
+        <h3 id="productModalTitle">Add New Product</h3>
+        <button class="modal__close" id="closeProductModalBtn">&times;</button>
+      </div>
+
+      <form id="productModalForm">
+        <input type="hidden" id="pmProductId">
+
+        <div class="modal__body">
+          <div class="form-group">
+            <label for="pmName">Product Name *</label>
+            <input type="text" id="pmName" required placeholder="e.g. IMOU 3K Outdoor Camera">
+          </div>
+
+          <div class="form-group">
+            <label for="pmPrice">Product Price (Rs)</label>
+            <input type="number" id="pmPrice" placeholder="e.g. 29500 (Leave empty for 'Ask for price')">
+            <small class="form-help">Leave empty if you don't want to display a fixed price.</small>
+          </div>
+
+          <div class="form-group">
+            <label for="pmDescription">Product Description</label>
+            <textarea id="pmDescription" rows="3" placeholder="Brief summary of product features..."></textarea>
+          </div>
+
+          <div class="form-group">
+            <label for="pmSpecifications">Product Specifications</label>
+            <input type="text" id="pmSpecifications"
+              placeholder="e.g. 3K clarity · solar-powered · human & vehicle detection">
+          </div>
+
+          <div class="form-group">
+            <label for="pmImageFile">Upload Product Picture</label>
+            <input type="file" id="pmImageFile" accept="image/*">
+            <small class="form-help">Upload image directly from your computer.</small>
+          </div>
+
+          <div class="form-group">
+            <label for="pmImageUrl">Or Image URL</label>
+            <input type="text" id="pmImageUrl" placeholder="https://example.com/image.jpg">
+          </div>
+
+          <div class="form-group mb-2">
+            <label>Current Image Preview</label>
+            <div class="image-preview-container">
+              <img id="pmImagePreview" src="assets/images/camera-product-shot.jpg" alt="Preview"
+                style="max-height: 120px; border-radius: 8px; object-fit: cover;">
+            </div>
+          </div>
+
+          <div class="form-group checkbox-group">
+            <label>
+              <input type="checkbox" id="pmInStock" checked>
+              <strong>In Stock</strong> (Uncheck to mark as "Out of Stock" on website)
+            </label>
+          </div>
+
+          <div class="form-group checkbox-group">
+            <label>
+              <input type="checkbox" id="pmVisible" checked>
+              <strong>Publish on live website</strong> (Uncheck to hide this product from visitors)
+            </label>
+          </div>
+        </div>
+
+        <div class="modal__foot">
+          <button type="button" class="btn btn--outline" id="cancelProductModalBtn">Cancel</button>
+          <button type="submit" class="btn btn--primary" id="saveProductBtn">Save Product</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="admin.js"></script>
+</body>
+
+</html>

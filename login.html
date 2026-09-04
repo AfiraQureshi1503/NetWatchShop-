@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Owner Login — NetWatchShop Admin</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap"
+    rel="stylesheet">
+
+  <link rel="stylesheet" href="admin.css">
+
+  <!-- Supabase -->
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+</head>
+
+<body class="login-body">
+
+  <div class="login-card">
+
+    <div class="login-card__header">
+      <div class="logo-mark" aria-hidden="true"></div>
+
+      <h1>NetWatch<em>Shop</em></h1>
+
+      <p class="login-card__subtitle">
+        Owner &amp; Admin Panel Login
+      </p>
+    </div>
+
+
+    <div id="loginAlert" class="alert alert--danger" style="display: none;"></div>
+
+
+    <form id="loginForm" class="login-form">
+
+      <div class="form-group">
+
+        <label for="email">
+          Owner Email
+        </label>
+
+        <input type="email" id="email" name="email" required placeholder="Enter owner email" autocomplete="email"
+          value="abdulmoiz1102@gmail.com">
+
+      </div>
+
+
+      <div class="form-group">
+
+        <label for="password">
+          Owner Password
+        </label>
+
+        <input type="password" id="password" name="password" required placeholder="Enter password"
+          autocomplete="current-password">
+
+      </div>
+
+
+      <button type="submit" class="btn btn--primary btn--block" id="loginBtn">
+        Log In to Admin Panel
+      </button>
+
+    </form>
+
+
+    <div class="login-card__footer">
+      <a href="./">
+        ← Return to Public Website
+      </a>
+    </div>
+
+  </div>
+
+  <script>
+
+    /* ---------- Supabase Configuration ---------- */
+
+    const SUPABASE_URL = "https://xlizmfqzcfrbojkaugtk.supabase.co";
+    const SUPABASE_KEY = "sb_publishable_SOwQqXfZ0wg8wuEdOMAwEg_o-DUqxhE";
+
+    const supabaseClient = window.supabase.createClient(
+      SUPABASE_URL,
+      SUPABASE_KEY
+    );
+
+
+    /* ---------- Check Existing Login ---------- */
+
+    async function checkAuthentication() {
+
+      const {
+        data: {
+          session
+        }
+      } = await supabaseClient.auth.getSession();
+
+      if (session) {
+        window.location.href = "admin.html";
+      }
+
+    }
+
+    checkAuthentication();
+
+
+    /* ---------- Login ---------- */
+
+    const loginForm =
+      document.getElementById("loginForm");
+
+    const loginAlert =
+      document.getElementById("loginAlert");
+
+    const loginBtn =
+      document.getElementById("loginBtn");
+
+
+    loginForm.addEventListener(
+      "submit",
+      async function (e) {
+
+        e.preventDefault();
+
+        loginAlert.style.display = "none";
+
+        loginBtn.disabled = true;
+        loginBtn.textContent = "Authenticating...";
+
+
+        const email =
+          loginForm.email.value.trim();
+
+        const password =
+          loginForm.password.value;
+
+
+        const {
+          data,
+          error
+        } = await supabaseClient.auth.signInWithPassword({
+
+          email: email,
+
+          password: password
+
+        });
+
+
+        if (error) {
+
+          console.error(
+            "Login error:",
+            error
+          );
+
+          loginAlert.textContent =
+            "Invalid email or password.";
+
+          loginAlert.style.display =
+            "block";
+
+          loginBtn.disabled = false;
+
+          loginBtn.textContent =
+            "Log In to Admin Panel";
+
+          return;
+        }
+
+
+        if (data.session) {
+
+          window.location.href =
+            "admin.html";
+
+        }
+
+      }
+    );
+
+  </script>
+
+</body>
+
+</html>

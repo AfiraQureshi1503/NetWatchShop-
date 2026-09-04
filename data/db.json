@@ -1,0 +1,129 @@
+{
+  "admin": {
+    "username": "admin",
+    "passwordHash": "$2b$10$E6E6xdq0HtxDt/BAKei0b.eH/wW1E.zOaxwlA0u/UIr0nMNu4oiK2"
+  },
+  "siteContent": {
+    "heroEyebrow": "IMOU authorised reseller",
+    "heroTitle": "Watch every entrance, from wherever you are.",
+    "heroSubtitle": "NetWatchShop stocks IMOU security cameras, recorders and storage, plus everyday computer accessories — all handled directly, order to delivery, over WhatsApp.",
+    "aboutTitle": "A straightforward place to buy security gear",
+    "aboutLead": "NetWatchShop sells security cameras, recorders, storage cards and computer accessories, including the IMOU and Logitech ranges shown on this site. We keep things simple: browse what's in stock, then message us directly to check availability, ask questions, and place your order.",
+    "whatsapp": "03243249829",
+    "whatsappRaw": "923243249829",
+    "instagram": "netwatchshop",
+    "instagramLink": "https://instagram.com/netwatchshop",
+    "tiktok": "netwatchshop",
+    "tiktokLink": "https://tiktok.com/@netwatchshop",
+    "youtube": "NetWatch Technology",
+    "youtubeLink": "https://www.youtube.com/results?search_query=NetWatch+Technology"
+  },
+  "video": {
+    "url": "/assets/video/camera-demo.mp4",
+    "poster": "/assets/images/camera-ad-hero.jpg",
+    "title": "See it in action",
+    "eyebrow": "Product in action"
+  },
+  "products": [
+    {
+      "id": "p1",
+      "name": "IMOU 3K Solar Outdoor Camera",
+      "price": "29500",
+      "description": "High performance 3K solar-powered outdoor battery camera with 5W solar panel, human & vehicle detection, and 24/7 recording.",
+      "specifications": "3K clarity · solar-powered · human & vehicle detection · 24/7 recording",
+      "image": "/assets/images/camera-product-shot.jpg",
+      "visible": false,
+      "inStock": true,
+      "createdAt": 1788435168427
+    },
+    {
+      "id": "p2",
+      "name": "IMOU Smart Wi-Fi Recorder N110W",
+      "price": "",
+      "description": "8-channel Wi-Fi NVR recorder with dual-band Wi-Fi 6 and HDMI/VGA output for high-definition security feeds.",
+      "specifications": "8-channel · H.265 · dual-band Wi-Fi 6 · HDMI/VGA output",
+      "image": "/assets/images/nvr-box.jpg",
+      "visible": true,
+      "inStock": true,
+      "createdAt": 1788435167427
+    },
+    {
+      "id": "p3",
+      "name": "IMOU S1 64GB Memory Card",
+      "price": "",
+      "description": "Specialized high-endurance microSD card designed for continuous video surveillance and security camera recording.",
+      "specifications": "microSDHC · Class 10 · U3 · V30 · built for security recording",
+      "image": "/assets/images/sdcard-box.jpg",
+      "visible": true,
+      "inStock": true,
+      "createdAt": 1788435166427
+    },
+    {
+      "id": "p4",
+      "name": "Logitech B100 Wired Mouse",
+      "price": "2200",
+      "description": "Comfortable ambidextrous full-size wired USB optical mouse built with recycled materials.",
+      "specifications": "Plug-and-play USB · full-size design · 72% recycled plastic",
+      "image": "/assets/images/mouse-box.jpg",
+      "visible": true,
+      "inStock": true,
+      "createdAt": 1788435165427
+    }
+  ],
+  "gallery": [
+    {
+      "id": "g1",
+      "image": "/assets/images/camera-ad-hero.jpg",
+      "caption": "IMOU 3K Solar Outdoor Camera packaging and features",
+      "span": "span-2"
+    },
+    {
+      "id": "g2",
+      "image": "/assets/images/camera-installed.jpg",
+      "caption": "Camera mounted above a doorway with solar panel",
+      "span": ""
+    },
+    {
+      "id": "g3",
+      "image": "/assets/images/nvr-ad-1.jpg",
+      "caption": "IMOU N110W recorder shown on a console table",
+      "span": ""
+    },
+    {
+      "id": "g4",
+      "image": "/assets/images/nvr-ad-2.jpg",
+      "caption": "IMOU N110W recorder with live camera feed on a monitor",
+      "span": ""
+    },
+    {
+      "id": "g5",
+      "image": "/assets/images/sdcard-ad.jpg",
+      "caption": "IMOU S1 64GB memory card packaging detail",
+      "span": ""
+    },
+    {
+      "id": "g6",
+      "image": "/assets/images/sdcard-photo.jpg",
+      "caption": "IMOU S1 memory card held in hand at the shop",
+      "span": ""
+    },
+    {
+      "id": "g7",
+      "image": "/assets/images/mouse-ad-1.jpg",
+      "caption": "Logitech B100 wired mouse packaging detail",
+      "span": ""
+    },
+    {
+      "id": "g8",
+      "image": "/assets/images/mouse-ad-2.jpg",
+      "caption": "Logitech B100 mouse in use on a desk",
+      "span": "span-2"
+    },
+    {
+      "id": "g9",
+      "image": "/assets/images/mouse-ad-branded.jpg",
+      "caption": "Logitech B100 wired mouse, NetWatchShop listing",
+      "span": ""
+    }
+  ]
+}
