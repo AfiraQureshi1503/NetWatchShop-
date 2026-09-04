@@ -119,22 +119,46 @@ button { font-family: inherit; cursor: pointer; }
 }
 
 .nav-link {
-  display: flex; align-items: center; gap: 12px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
   padding: 11px 14px;
   border-radius: var(--radius-s);
-  color: var(--ink-soft);
+  color: #FFFFFF;
   font-size: .945rem;
   font-weight: 500;
   border-left: 2.5px solid transparent;
   transition: background-color .15s ease, color .15s ease;
 }
-.nav-link svg { width: 19px; height: 19px; flex: none; }
-.nav-link:hover { background: var(--surface-alt); color: var(--ink); }
+
+.nav-link svg {
+  width: 19px;
+  height: 19px;
+  flex: none;
+  color: #FFFFFF;
+  stroke: #FFFFFF;
+}
+
+.nav-link:hover {
+  background: rgba(255, 255, 255, 0.15);
+  color: #FFFFFF;
+}
+
+.nav-link:hover svg {
+  color: #FFFFFF;
+  stroke: #FFFFFF;
+}
+
 .nav-link.is-active {
-  background: var(--accent-tint);
-  color: var(--accent-deep);
-  border-left-color: var(--accent);
+  background: rgba(255, 255, 255, 0.20);
+  color: #FFFFFF;
+  border-left-color: #FFFFFF;
   font-weight: 600;
+}
+
+.nav-link.is-active svg {
+  color: #FFFFFF;
+  stroke: #FFFFFF;
 }
 
 .sidebar__whatsapp {
