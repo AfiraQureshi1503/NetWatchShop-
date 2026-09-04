@@ -353,32 +353,21 @@ button {
 
 
 /* Instagram */
-#sidebarInstagramLink {
-  color: var(--instagram);
-}
+#sidebarInstagramLink,
+#sidebarInstagramLink:hover,
+#sidebarInstagramLink svg,
+#sidebarInstagramLink:hover svg,
 
-#sidebarInstagramLink:hover {
-  color: var(--instagram);
-}
+#sidebarTiktokLink,
+#sidebarTiktokLink:hover,
+#sidebarTiktokLink svg,
+#sidebarTiktokLink:hover svg,
 
-
-/* TikTok */
-#sidebarTiktokLink {
-  color: var(--tiktok);
-}
-
-#sidebarTiktokLink:hover {
-  color: var(--tiktok);
-}
-
-
-/* YouTube */
-#sidebarYoutubeLink {
-  color: var(--youtube);
-}
-
-#sidebarYoutubeLink:hover {
-  color: var(--youtube);
+#sidebarYoutubeLink,
+#sidebarYoutubeLink:hover,
+#sidebarYoutubeLink svg,
+#sidebarYoutubeLink:hover svg {
+  color: #FFFFFF;
 }
 
 
